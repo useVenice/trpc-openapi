@@ -32,10 +32,10 @@ export const instanceofZodTypeLikeVoid = (type: z.ZodTypeAny): type is ZodTypeLi
 };
 
 export const unwrapZodType = (type: z.ZodTypeAny, unwrapPreprocess: boolean): z.ZodTypeAny => {
-  // TODO: Allow parsing array query params
-  // if (instanceofZodTypeKind(type, z.ZodFirstPartyTypeKind.ZodArray)) {
-  //   return unwrapZodType(type.element, unwrapPreprocess);
-  // }
+  // TODO: Allow parsing array query params, for now allowing this in kinda works...
+  if (instanceofZodTypeKind(type, z.ZodFirstPartyTypeKind.ZodArray)) {
+    return unwrapZodType(type.element, unwrapPreprocess);
+  }
   if (instanceofZodTypeKind(type, z.ZodFirstPartyTypeKind.ZodEnum)) {
     return unwrapZodType(z.string(), unwrapPreprocess);
   }
